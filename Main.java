@@ -7,11 +7,13 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.time.LocalDate;
 import java.util.*;
-import java.awt.Desktop;
+System.out.println("Banana Chips Inventory berjalan di port " + PORT);
 
 public class Main {
 
-    static final int PORT = 8080;
+    static final int PORT = Integer.parseInt(
+    System.getenv().getOrDefault("PORT", "8080")
+);
     static final Path WEB = Paths.get("web");
     static final Path DATA = Paths.get("data");
     static final Path PRODUCTS = DATA.resolve("produk.tsv");
@@ -57,7 +59,7 @@ public class Main {
         loadData();
 
         HttpServer server = HttpServer.create(
-            new InetSocketAddress("127.0.0.1", PORT), 0
+            new InetSocketAddress("0.0.0.0", PORT), 0
         );
 
         server.createContext("/", Main::handleRequest);
