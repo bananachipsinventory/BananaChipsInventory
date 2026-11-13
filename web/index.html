@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banana Chips | Inventory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-mark">🍌</div>
+            <div>
+                <h2>Banana<span>Chips.</span></h2>
+                <small>Inventory Management</small>
+            </div>
+        </div>
+
+        <div class="nav-caption">MENU UTAMA</div>
+        <nav class="navigation">
+            <button class="nav-link active" data-page="dashboard">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-link" data-page="products">
+                <span class="nav-icon">▦</span>
+                <span>Data Produk</span>
+            </button>
+            <button class="nav-link" data-page="incoming">
+                <span class="nav-icon">↓</span>
+                <span>Barang Masuk</span>
+            </button>
+            <button class="nav-link" data-page="outgoing">
+                <span class="nav-icon">↑</span>
+                <span>Barang Keluar</span>
+            </button>
+            <button class="nav-link" data-page="history">
+                <span class="nav-icon">◷</span>
+                <span>Riwayat Transaksi</span>
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="side-note">
+                <div class="note-emoji">🌿</div>
+                <strong>Kelola stok lebih mudah!</strong>
+                <p>Catat setiap pergerakan produk agar persediaan tetap terpantau.</p>
+            </div>
+            <div class="sidebar-version">BANANA CHIPS INVENTORY · v1.0</div>
+        </div>
+    </aside>
+
+    <main class="main-area">
+
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="mobile-menu" id="mobile-menu" aria-label="Buka menu">☰</button>
+                <div>
+                    <div class="breadcrumb">Banana Chips <span>/</span> <b id="breadcrumb-page">Dashboard</b></div>
+                    <h1 id="page-title">Dashboard</h1>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <div class="date-chip">
+                    <span>📅</span>
+                    <span id="today-date">Memuat tanggal...</span>
+                </div>
+                <div class="profile-chip">
+                    <div class="profile-avatar">BC</div>
+                    <div>
+                        <strong>Admin</strong>
+                        <small>Pengelola Stok</small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section class="page active" id="dashboard">
+
+            <div class="hero-banner">
+                <div class="hero-content">
+                    <span class="eyebrow">🍌 BANANA CHIPS INVENTORY</span>
+                    <h2>Halo, selamat datang! <span>👋</span></h2>
+                    <p>Semua stok keripik pisangmu, terpantau dalam satu tempat.</p>
+                    <button class="hero-button" data-go="products">Kelola Produk <span>→</span></button>
+                </div>
+                <div class="hero-art" aria-hidden="true">
+                    <div class="sun-shape"></div>
+                    <div class="banana-art">🍌</div>
+                    <div class="chip chip-one">🍌</div>
+                    <div class="chip chip-two">✨</div>
+                    <div class="leaf-shape">✦</div>
+                </div>
+                <div class="hero-decoration">BANANA<br>GOODNESS</div>
+            </div>
+
+            <div class="section-heading">
+                <div>
+                    <h3>Ringkasan Persediaan</h3>
+                    <p>Informasi stok produk saat ini</p>
+                </div>
+                <span class="live-label"><i></i> Data terkini</span>
+            </div>
+
+            <div class="stats-grid">
+                <article class="stat-card stat-yellow">
+                    <div class="stat-top">
+                        <span>Total Varian Produk</span>
+                        <span class="stat-icon">📦</span>
+                    </div>
+                    <strong id="total-products">0</strong>
+                    <small>Produk terdaftar</small>
+                    <div class="stat-decoration">01</div>
+                </article>
+
+                <article class="stat-card stat-green">
+                    <div class="stat-top">
+                        <span>Total Stok Tersedia</span>
+                        <span class="stat-icon">🌱</span>
+                    </div>
+                    <strong id="total-stock">0</strong>
+                    <small>Seluruh unit persediaan</small>
+                    <div class="stat-decoration">02</div>
+                </article>
+
+                <article class="stat-card stat-peach">
+                    <div class="stat-top">
+                        <span>Stok Perlu Dicek</span>
+                        <span class="stat-icon">🔔</span>
+                    </div>
+                    <strong id="low-stock">0</strong>
+                    <small>Produk dengan stok ≤ 10</small>
+                    <div class="stat-decoration">03</div>
+                </article>
+            </div>
+
+            <div class="section-heading action-heading">
+                <div>
+                    <h3>Aksi Cepat</h3>
+                    <p>Pilih aktivitas yang ingin dilakukan</p>
+                </div>
+            </div>
+
+            <div class="quick-grid">
+                <button class="quick-card quick-product" data-go="products">
+                    <span class="quick-icon">＋</span>
+                    <span class="quick-text">
+                        <strong>Tambah Produk</strong>
+                        <small>Daftarkan varian baru</small>
+                    </span>
+                    <span class="quick-arrow">↗️</span>
+                </button>
+
+                <button class="quick-card quick-in" data-go="incoming">
+                    <span class="quick-icon">↓</span>
+                    <span class="quick-text">
+                        <strong>Barang Masuk</strong>
+                        <small>Tambahkan persediaan</small>
+                    </span>
+                    <span class="quick-arrow">↗️</span>
+                </button>
+
+                <button class="quick-card quick-out" data-go="outgoing">
+                    <span class="quick-icon">↑</span>
+                    <span class="quick-text">
+                        <strong>Barang Keluar</strong>
+                        <small>Catat stok keluar</small>
+                    </span>
+                    <span class="quick-arrow">↗️</span>
+                </button>
+            </div>
+
+            <div class="dashboard-bottom">
+                <div class="content-card stock-card">
+                    <div class="card-heading">
+                        <div>
+                            <h3>Stok per Varian</h3>
+                            <p>Perbandingan jumlah stok produk</p>
+                        </div>
+                        <span class="heading-emoji">📊</span>
+                    </div>
+                    <div id="stock-chart" class="stock-chart">
+                        <div class="empty-state">Belum ada data produk.</div>
+                    </div>
+                </div>
+
+                <div class="content-card activity-card">
+                    <div class="card-heading">
+                        <div>
+                            <h3>Aktivitas Terbaru</h3>
+                            <p>Transaksi stok terakhir</p>
+                        </div>
+                        <button class="text-button" data-go="history">Lihat semua →</button>
+                    </div>
+                    <div id="recent-activity" class="recent-activity">
+                        <div class="empty-state">Belum ada aktivitas.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card inventory-card">
+                <div class="card-heading">
+                    <div>
+                        <h3>Persediaan Produk</h3>
+                        <p>Ringkasan seluruh varian keripik pisang</p>
+                    </div>
+                    <button class="text-button" data-go="products">Lihat produk →</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>KODE</th>
+                                <th>NAMA PRODUK</th>
+                                <th>HARGA</th>
+                                <th>STOK</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dashboard-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- DATA PRODUK -->
+        <section class="page" id="products">
+            <div class="page-intro">
+                <div>
+                    <span class="eyebrow brown-eyebrow">PRODUCT MANAGEMENT</span>
+                    <h2>Kelola Produk 📦</h2>
+                    <p>Daftarkan dan pantau lima varian Banana Chips.</p>
+                </div>
+                <div class="intro-illustration">🛍️</div>
+            </div>
+
+            <div class="content-card form-card">
+                <div class="card-heading">
+                    <div>
+                        <h3>Tambah Produk Baru</h3>
+                        <p>Lengkapi informasi produk di bawah ini.</p>
+                    </div>
+                    <span class="form-badge">＋ Produk</span>
+                </div>
+
+                <form id="product-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="product-code">Kode Produk <span>*</span></label>
+                            <input id="product-code" name="code" type="text" placeholder="Contoh: BK001" required maxlength="20">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-name">Varian Produk <span>*</span></label>
+                            <select id="product-name" name="name" required>
+                                <option value="">Pilih varian produk</option>
+                                <option value="Original">Original</option>
+                                <option value="Cokelat">Cokelat</option>
+                                <option value="Susu">Susu</option>
+                                <option value="Keju">Keju</option>
+                                <option value="Karamel">Karamel</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-price">Harga Produk (Rp) <span>*</span></label>
+                            <input id="product-price" name="price" type="number" min="0" placeholder="Contoh: 15000" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-stock">Stok Awal (pcs) <span>*</span></label>
+                            <input id="product-stock" name="stock" type="number" min="0" placeholder="Contoh: 50" required>
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <span class="form-hint">* Semua kolom wajib diisi.</span>
+                        <button type="submit" class="primary-button">Simpan Produk <span>→</span></button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="content-card">
+                <div class="card-heading responsive-heading">
+                    <div>
+                        <h3>Daftar Produk</h3>
+                        <p id="product-count">0 produk terdaftar</p>
+                    </div>
+                    <div class="table-tools">
+                        <div class="search-box">
+                            <span>⌕</span>
+                            <input type="search" id="product-search" placeholder="Cari produk...">
+                        </div>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>KODE</th>
+                                <th>NAMA PRODUK</th>
+                                <th>HARGA</th>
+                                <th>STOK</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="product-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- BARANG MASUK -->
+        <section class="page" id="incoming">
+            <div class="page-intro">
+                <div>
+                    <span class="eyebrow green-eyebrow">STOCK IN</span>
+                    <h2>Barang Masuk 📥</h2>
+                    <p>Catat produk yang masuk untuk memperbarui persediaan.</p>
+                </div>
+                <div class="intro-illustration green-illustration">📦</div>
+            </div>
+
+            <div class="transaction-layout">
+                <div class="content-card form-card">
+                    <div class="card-heading">
+                        <div>
+                            <h3>Form Barang Masuk</h3>
+                            <p>Masukkan detail penambahan stok.</p>
+                        </div>
+                        <span class="form-badge green-badge">+ Stok</span>
+                    </div>
+
+                    <form id="incoming-form" class="transaction-form">
+                        <input type="hidden" name="type" value="Masuk">
+
+                        <div class="form-group">
+                            <label>Pilih Produk <span>*</span></label>
+                            <select name="code" class="product-select" required>
+                                <option value="">Pilih produk</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Jumlah Barang Masuk (pcs) <span>*</span></label>
+                            <input type="number" name="quantity" min="1" placeholder="Masukkan jumlah barang" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tanggal Transaksi <span>*</span></label>
+                            <input type="date" name="date" class="transaction-date" required>
+                        </div>
+
+                        <div class="form-footer">
+                            <span class="form-hint">Pastikan jumlah sudah benar.</span>
+                            <button type="submit" class="primary-button green-button">Simpan Barang Masuk <span>→</span></button>
+                        </div>
+                    </form>
+                </div>
+
+                <aside class="content-card preview-card green-preview">
+                    <div class="preview-emoji">🌱</div>
+                    <h3>Preview Persediaan</h3>
+                    <p>Pilih produk dan masukkan jumlah untuk melihat perkiraan stok setelah transaksi.</p>
+                    <div class="preview-divider"></div>
+                    <div class="preview-line"><span>Stok saat ini</span><strong id="incoming-current">—</strong></div>
+                    <div class="preview-line"><span>Barang masuk</span><strong id="incoming-quantity">+ 0</strong></div>
+                    <div class="preview-total"><span>Perkiraan stok akhir</span><strong id="incoming-total">—</strong></div>
+                    <small>Perubahan stok disimpan setelah transaksi berhasil.</small>
+                </aside>
+            </div>
+        </section>
+
+        <!-- BARANG KELUAR -->
+        <section class="page" id="outgoing">
+            <div class="page-intro">
+                <div>
+                    <span class="eyebrow orange-eyebrow">STOCK OUT</span>
+                    <h2>Barang Keluar 📤</h2>
+                    <p>Catat produk yang keluar agar jumlah stok tetap akurat.</p>
+                </div>
+                <div class="intro-illustration orange-illustration">🛒</div>
+            </div>
+
+            <div class="transaction-layout">
+                <div class="content-card form-card">
+                    <div class="card-heading">
+                        <div>
+                            <h3>Form Barang Keluar</h3>
+                            <p>Masukkan detail pengurangan stok.</p>
+                        </div>
+                        <span class="form-badge orange-badge">− Stok</span>
+                    </div>
+
+                    <form id="outgoing-form" class="transaction-form">
+                        <input type="hidden" name="type" value="Keluar">
+
+                        <div class="form-group">
+                            <label>Pilih Produk <span>*</span></label>
+                            <select name="code" class="product-select" required>
+                                <option value="">Pilih produk</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Jumlah Barang Keluar (pcs) <span>*</span></label>
+                            <input type="number" name="quantity" min="1" placeholder="Masukkan jumlah barang" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tanggal Transaksi <span>*</span></label>
+                            <input type="date" name="date" class="transaction-date" required>
+                        </div>
+
+                        <div class="form-footer">
+                            <span class="form-hint">Stok tidak boleh kurang dari 0.</span>
+                            <button type="submit" class="primary-button orange-button">Simpan Barang Keluar <span>→</span></button>
+                        </div>
+                    </form>
+                </div>
+
+                <aside class="content-card preview-card orange-preview">
+                    <div class="preview-emoji">🧺</div>
+                    <h3>Preview Persediaan</h3>
+                    <p>Pastikan stok mencukupi sebelum mencatat barang keluar.</p>
+                    <div class="preview-divider"></div>
+                    <div class="preview-line"><span>Stok saat ini</span><strong id="outgoing-current">—</strong></div>
+                    <div class="preview-line"><span>Barang keluar</span><strong id="outgoing-quantity">− 0</strong></div>
+                    <div class="preview-total"><span>Perkiraan stok akhir</span><strong id="outgoing-total">—</strong></div>
+                    <small id="outgoing-warning">Perubahan stok disimpan setelah transaksi berhasil.</small>
+                </aside>
+            </div>
+        </section>
+
+        <!-- RIWAYAT -->
+        <section class="page" id="history">
+            <div class="page-intro">
+                <div>
+                    <span class="eyebrow brown-eyebrow">TRANSACTION HISTORY</span>
+                    <h2>Riwayat Transaksi 🧾</h2>
+                    <p>Pantau semua aktivitas barang masuk dan barang keluar.</p>
+                </div>
+                <div class="intro-illustration">📋</div>
+            </div>
+
+            <div class="history-summary">
+                <div class="history-mini mini-green">
+                    <span>📥</span>
+                    <div><small>Total transaksi masuk</small><strong id="history-in-count">0</strong></div>
+                </div>
+                <div class="history-mini mini-orange">
+                    <span>📤</span>
+                    <div><small>Total transaksi keluar</small><strong id="history-out-count">0</strong></div>
+                </div>
+                <div class="history-mini mini-yellow">
+                    <span>🧾</span>
+                    <div><small>Total transaksi</small><strong id="history-total-count">0</strong></div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-heading responsive-heading">
+                    <div>
+                        <h3>Catatan Aktivitas Stok</h3>
+                        <p>Daftar transaksi yang tersimpan</p>
+                    </div>
+                    <div class="table-tools">
+                        <div class="search-box">
+                            <span>⌕</span>
+                            <input type="search" id="history-search" placeholder="Cari transaksi...">
+                        </div>
+                        <select id="history-filter" class="filter-select">
+                            <option value="Semua">Semua jenis</option>
+                            <option value="Masuk">Barang masuk</option>
+                            <option value="Keluar">Barang keluar</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID TRANSAKSI</th>
+                                <th>TANGGAL</th>
+                                <th>KODE PRODUK</th>
+                                <th>NAMA PRODUK</th>
+                                <th>JENIS</th>
+                                <th>JUMLAH</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table"></tbody>
+                    </table>
+                </div>
+                <div class="table-footer" id="history-result-count">Menampilkan 0 transaksi</div>
+            </div>
+        </section>
+
+        <footer class="main-footer">
+            <span>🍌 Banana Chips Inventory System</span>
+            <span>Manage stock with a little more joy.</span>
+        </footer>
+    </main>
+</div>
+
+<div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
